@@ -32,5 +32,5 @@ RUN cp storage-schemas.conf.example storage-schemas.conf
 WORKDIR /tmp/graphite-web-0.9.14
 RUN python setup.py install
 WORKDIR /opt/graphite/webapp/graphite
-#RUN python manage.py syncdb
+RUN python manage.py syncdb
 RUN cp local_settings.py.example local_settings.py
