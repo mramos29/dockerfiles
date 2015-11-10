@@ -7,7 +7,7 @@ MAINTAINER Marco Ramos <mramos29@sapo.pt> @mramos29
 USER root
 
 # apt-get essential packages
-RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
+ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get -y update
 RUN apt-get install -y apache2 apache2-mpm-prefork apache2-utils libexpat1 ssl-cert libapache2-mod-python libapache2-mod-wsgi git python-django python-cairo python-django-tagging python-ldap python-memcache python-txamqp python-setuptools python-dev libapr1 bzr wget
 
