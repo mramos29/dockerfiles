@@ -1,5 +1,4 @@
 # Docker file to build a Graphite and Grafana server
-# Work in progress...
 FROM ubuntu:latest
 
 MAINTAINER Marco Ramos <mramos29@sapo.pt> @mramos29
