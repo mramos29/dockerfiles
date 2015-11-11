@@ -31,14 +31,15 @@ WORKDIR /tmp/carbon-0.9.14
 RUN python setup.py install 
 
 # Install Graphite
-WORKDIR /opt/graphite/conf
-RUN cp carbon.conf.example carbon.conf && \
-  cp storage-schemas.conf.example storage-schemas.conf
 WORKDIR /tmp/graphite-web-0.9.14
 RUN python setup.py install
 WORKDIR /opt/graphite/webapp/graphite
 RUN python manage.py syncdb --noinput && \
   cp local_settings.py.example local_settings.py
+WORKDIR /opt/graphite/conf
+RUN cp carbon.conf.example carbon.conf && \
+  cp storage-schemas.conf.example storage-schemas.conf && \
+  cp graphite.wsgi.example graphite.wsgi
 
 # Configure Apache
 COPY graphite-apache.conf /etc/apache2/sites-available/
@@ -48,6 +49,5 @@ RUN a2ensite graphite-apache
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 # Launch services
-EXPOSE 80
+EXPOSE 80 2003
 CMD ["/usr/bin/supervisord"]
-
