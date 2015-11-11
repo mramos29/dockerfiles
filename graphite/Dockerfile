@@ -13,9 +13,15 @@ RUN apt-get install -y apache2 apache2-mpm-prefork apache2-utils libexpat1 ssl-c
 
 # Download Graphite, Carbon and Whisper source code in order to use latest version since repos take some time to be updated
 WORKDIR /tmp
-RUN wget https://github.com/graphite-project/graphite-web/archive/0.9.14.tar.gz && tar xvfz 0.9.14.tar.gz && rm 0.9.14.tar.gz
-RUN wget https://github.com/graphite-project/carbon/archive/0.9.14.tar.gz && tar xvfz 0.9.14.tar.gz && rm 0.9.14.tar.gz
-RUN wget https://github.com/graphite-project/whisper/archive/0.9.14.tar.gz && tar xvfz 0.9.14.tar.gz && rm 0.9.14.tar.gz
+RUN wget https://github.com/graphite-project/graphite-web/archive/0.9.14.tar.gz && \
+  tar xvfz 0.9.14.tar.gz && \
+  rm 0.9.14.tar.gz
+RUN wget https://github.com/graphite-project/carbon/archive/0.9.14.tar.gz && \
+  tar xvfz 0.9.14.tar.gz && \
+  rm 0.9.14.tar.gz
+RUN wget https://github.com/graphite-project/whisper/archive/0.9.14.tar.gz && \
+  tar xvfz 0.9.14.tar.gz && \
+  rm 0.9.14.tar.gz
 
 # Install Whisper
 WORKDIR /tmp/whisper-0.9.14
@@ -27,10 +33,10 @@ RUN python setup.py install
 
 # Install Graphite
 WORKDIR /opt/graphite/conf
-RUN cp carbon.conf.example carbon.conf
-RUN cp storage-schemas.conf.example storage-schemas.conf
+RUN cp carbon.conf.example carbon.conf && \
+  cp storage-schemas.conf.example storage-schemas.conf
 WORKDIR /tmp/graphite-web-0.9.14
 RUN python setup.py install
 WORKDIR /opt/graphite/webapp/graphite
-RUN python manage.py syncdb --noinput
-RUN cp local_settings.py.example local_settings.py
+RUN python manage.py syncdb --noinput && \
+  cp local_settings.py.example local_settings.py
