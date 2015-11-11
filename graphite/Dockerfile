@@ -40,3 +40,12 @@ RUN python setup.py install
 WORKDIR /opt/graphite/webapp/graphite
 RUN python manage.py syncdb --noinput && \
   cp local_settings.py.example local_settings.py
+
+# Configure Apache
+COPY graphite-apache.conf /etc/apache2/sites-available/
+RUN a2ensite graphite-apache
+
+# Launch services
+EXPOSE 80
+EXPOSE 2003
+CMD service apache2 start && service carbon start
