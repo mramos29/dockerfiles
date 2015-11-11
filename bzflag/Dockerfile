@@ -9,10 +9,6 @@ USER root
 RUN apt-get -y update
 RUN apt-get -y install bzflag-server
 
-# Add conf here
-
 WORKDIR /usr/games
-
-# Add environment variables
 
 CMD ["./bzfs", "'-a 50 38']
