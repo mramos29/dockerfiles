@@ -48,4 +48,4 @@ RUN a2ensite graphite-apache
 # Launch services
 EXPOSE 80
 EXPOSE 2003
-CMD service apache2 start && service carbon start
+CMD service apache2 start && /opt/graphite/bin/carbon-cache.py start
