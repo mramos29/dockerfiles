@@ -8,7 +8,7 @@ MAINTAINER Marco Ramos <mramos29@sapo.pt> @mramos29
 # apt-get essential packages
 ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get -y update
-RUN apt-get install -y apache2 apache2-mpm-prefork apache2-utils libexpat1 ssl-cert libapache2-mod-python libapache2-mod-wsgi git python-django python-cairo python-django-tagging python-ldap python-memcache python-txamqp python-setuptools python-dev libapr1 bzr wget
+RUN apt-get install -y apache2 apache2-mpm-prefork apache2-utils libexpat1 ssl-cert libapache2-mod-python libapache2-mod-wsgi git python-django python-cairo python-django-tagging python-ldap python-memcache python-txamqp python-setuptools python-dev libapr1 bzr wget supervisor
 
 # Download Graphite, Carbon and Whisper source code in order to use latest version since repos take some time to be updated
 WORKDIR /tmp
@@ -44,7 +44,10 @@ RUN python manage.py syncdb --noinput && \
 COPY graphite-apache.conf /etc/apache2/sites-available/
 RUN a2ensite graphite-apache
 
+# Configure supervisord
+COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+
 # Launch services
-#EXPOSE 80
-#EXPOSE 2003
-CMD service apache2 start && /opt/graphite/bin/carbon-cache.py start
+EXPOSE 80
+CMD ["/usr/bin/supervisord"]
+
