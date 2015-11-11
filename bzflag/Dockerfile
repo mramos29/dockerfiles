@@ -11,4 +11,4 @@ RUN apt-get -y install bzflag-server
 
 WORKDIR /usr/games
 
-CMD ["./bzfs", "'-a 50 38']
+CMD ["./bzfs", "-a 50 38"]

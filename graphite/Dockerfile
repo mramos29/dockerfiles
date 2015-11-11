@@ -3,7 +3,7 @@ FROM ubuntu:latest
 
 MAINTAINER Marco Ramos <mramos29@sapo.pt> @mramos29
 
-USER root
+#USER root
 
 # apt-get essential packages
 ENV DEBIAN_FRONTEND noninteractive
@@ -45,6 +45,6 @@ COPY graphite-apache.conf /etc/apache2/sites-available/
 RUN a2ensite graphite-apache
 
 # Launch services
-EXPOSE 80
-EXPOSE 2003
+#EXPOSE 80
+#EXPOSE 2003
 CMD service apache2 start && /opt/graphite/bin/carbon-cache.py start
