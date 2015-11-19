@@ -17,8 +17,7 @@ RUN pip install graphite-web
 
 # Configure stuff 
 RUN mkdir -p /opt/graphite/storage/whisper && \
-  chmod 0755 /opt/graphite/storage/whisper && \
-  chmod 0644 /opt/graphite/storage/graphite.db 
+  chmod 0755 /opt/graphite/storage/whisper
 WORKDIR /opt/graphite/webapp/graphite
 RUN python manage.py syncdb --noinput && \
   cp local_settings.py.example local_settings.py && \ 
