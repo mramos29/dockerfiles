@@ -6,7 +6,7 @@ It will install Graphite latest version using pip.
 
 To build docker image, just type on the current directory:
 
-	docker built -t mramos29/graphite .
+	docker build -t mramos29/graphite .
 
 To get this docker image running, just type:
 
