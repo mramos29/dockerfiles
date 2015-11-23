@@ -3,12 +3,12 @@ FROM ubuntu:14.04
 
 MAINTAINER Marco Ramos <mramos29@sapo.pt> @mramos29
 
-#USER root
-
 # apt-get essential packages
 ENV DEBIAN_FRONTEND noninteractive
+RUN apt-get -y install build-essential software-properties-common
+RUN add-apt-repository -y ppa:chris-lea/node.js
 RUN apt-get -y update
-RUN apt-get install -y nginx libexpat1 ssl-cert python-ldap python-cairo python-django python-twisted python-django-tagging python-simplejson python-pyparsing python-memcache python-pysqlite2 python-support python-pip python-dev gunicorn supervisor build-essential software-properties-common
+RUN apt-get install -y nginx libexpat1 ssl-cert python-ldap python-cairo python-django python-twisted python-django-tagging python-simplejson python-pyparsing python-memcache python-pysqlite2 python-support python-pip python-dev gunicorn nodejs git supervisor
 
 # Install pytz
 RUN pip install pytz
@@ -34,6 +34,10 @@ RUN cp carbon.conf.example carbon.conf && \
   cp storage-schemas.conf.example storage-schemas.conf && \
   cp graphite.wsgi.example graphite.wsgi
 
+# Install nodejs and statsd
+WORKDIR /opt
+RUN git clone git://github.com/etsy/statsd.git
+COPY localConfig.js /opt/statsd/localConfig.js
 
 # Configure Nginx
 COPY nginx.conf /etc/nginx/nginx.conf
