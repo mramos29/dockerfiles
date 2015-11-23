@@ -8,7 +8,7 @@ MAINTAINER Marco Ramos <mramos29@sapo.pt> @mramos29
 # apt-get essential packages
 ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get -y update
-RUN apt-get install -y nginx libexpat1 ssl-cert python-ldap python-cairo python-django python-twisted python-django-tagging python-simplejson python-memcache python-pysqlite2 python-support python-pip gunicorn supervisor 
+RUN apt-get install -y nginx libexpat1 ssl-cert python-ldap python-cairo python-django python-twisted python-django-tagging python-simplejson python-pyparsing python-memcache python-pysqlite2 python-support python-pip gunicorn supervisor 
 
 # Install Whisper, Carbon and Graphite using pip 
 RUN pip install whisper
