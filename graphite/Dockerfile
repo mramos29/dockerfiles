@@ -5,7 +5,7 @@ MAINTAINER Marco Ramos <mramos29@sapo.pt> @mramos29
 
 # apt-get essential packages
 ENV DEBIAN_FRONTEND noninteractive
-RUN apt-get -y install build-essential software-properties-common
+RUN apt-get install -y software-properties-common
 RUN add-apt-repository -y ppa:chris-lea/node.js
 RUN apt-get -y update
 RUN apt-get install -y nginx libexpat1 ssl-cert python-ldap python-cairo python-django python-twisted python-django-tagging python-simplejson python-pyparsing python-memcache python-pysqlite2 python-support python-pip python-dev gunicorn nodejs git supervisor
@@ -46,5 +46,5 @@ COPY nginx.conf /etc/nginx/nginx.conf
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 # Launch services
-EXPOSE 80 2003
+EXPOSE 80 2003 8125/udp 8126
 CMD ["/usr/bin/supervisord"]
