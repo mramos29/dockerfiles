@@ -8,7 +8,7 @@ ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get install -y software-properties-common
 RUN add-apt-repository -y ppa:chris-lea/node.js
 RUN apt-get -y update
-RUN apt-get install -y nginx libexpat1 ssl-cert python-ldap python-cairo python-django python-twisted python-django-tagging python-simplejson python-pyparsing python-memcache python-pysqlite2 python-support python-pip python-dev gunicorn nodejs git supervisor
+RUN apt-get install -y nginx libexpat1 apt-transport-https ssl-cert python-ldap python-cairo python-django python-twisted python-django-tagging python-simplejson python-pyparsing python-memcache python-pysqlite2 python-support python-pip python-dev libfontconfig gunicorn nodejs git curl supervisor
 
 # Install pytz
 RUN pip install pytz
@@ -38,6 +38,14 @@ RUN cp carbon.conf.example carbon.conf && \
 WORKDIR /opt
 RUN git clone git://github.com/etsy/statsd.git
 COPY localConfig.js /opt/statsd/localConfig.js
+
+# Install Grafana
+RUN echo "deb https://packagecloud.io/grafana/testing/debian/ wheezy main" > /etc/apt/sources.list && \
+  curl https://packagecloud.io/gpg.key | apt-key add - && \
+  apt-get update && \
+  apt-get install grafana
+RUN mkdir -p /opt/conf && \
+  cp /usr/share/grafana/conf/defaults.ini /opt/conf
 
 # Configure Nginx
 COPY nginx.conf /etc/nginx/nginx.conf
