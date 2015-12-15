@@ -13,3 +13,9 @@ To get this docker image running, just type:
 	docker run -p 80:80 -t mramos29/centos-apache-php-mssql
 
 This will launch Apache on the default port (TCP 80) running on supervisord.
+
+Version 1.1:
+ - Added PHP Xdebug
+ - Enabled mod_rewrite
+ - Enabled PHP Error Log
+ - Installed MySQL server in the container
