@@ -3,7 +3,7 @@
 
 FROM centos:latest
 
-MAINTAINER Marco Ramos <mramos29@sapo.pt>
+MAINTAINER Marco Ramos <mramos29@sapo.pt> @mramos29
 
 # Install essential pakages
 RUN yum -y install python python-setuptools python-pip bzip2-devel curl curl-devel libjpeg-devel libpng-devel freetype-devel libc-client-devel.i686 libc-client-devel libmcrypt-devel openssl build-essential xorg git-core git-doc libssl-dev urw-fonts libXext libXrender fontconfig libfontconfig.so.1 gcc gcc-c++ autoconf automake
