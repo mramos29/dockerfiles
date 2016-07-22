@@ -10,7 +10,7 @@ USER root
 RUN apt-get -y update
 
 # Install Apache, PHP and its modules
-RUN apt-get -y install apache2 php libapache2-mod-php php-mcrypt php-mysql php-curl php-gd mysql-client php-pear git vim curl
+RUN apt-get -y install apache2 php libapache2-mod-php php-mcrypt php-mysql php-curl php-gd php-intl php-mbstring php-zip mysql-client php-pear git vim curl
 RUN a2enmod rewrite
 COPY 000-default.conf /etc/apache2/sites-available/000-default.conf
 
@@ -31,12 +31,13 @@ RUN curl -sS https://getcomposer.org/installer | php && \
 RUN cd /var/www/html && \ 
   git clone https://github.com/magento/magento2.git && \
   export PATH=$PATH:/var/www/html/magento2/bin
-#RUN php /var/www/html/magento2/bin/magento setup:install --base-url=http://127.0.0.1/magento2/ \
-#--db-host=localhost --db-name=magento --db-user=magento --db-password=magento \
-#--admin-firstname=Magento --admin-lastname=User --admin-email=user@example.com \
-#--admin-user=admin --admin-password=admin123 --language=en_US \
-#--currency=USD --timezone=America/Chicago --use-rewrites=1
-  
+RUN cd /var/www/html/magento2 && \
+  composer install
+#RUN php /var/www/html/magento2/bin/magento setup:install --base-url=http://127.0.0.1/ \
+#  --db-host=localhost --db-name=magento --db-user=magento --db-password=magento \
+#  --admin-firstname=Magento --admin-lastname=User --admin-email=user@example.com \
+#  --admin-user=admin --admin-password=admin123 --language=en_US \
+#  --currency=USD --timezone=America/Chicago --use-rewrites=1
 
 # Install and configure supervidord
 RUN apt-get -y install supervisor
