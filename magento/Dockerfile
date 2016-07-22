@@ -1,4 +1,5 @@
-# Docker file to build a Magento server
+# Docker file to build a Magento server (Community Edition)
+# Uses Apache2+PHP5 on a Ubuntu 16.04 server
 
 FROM ubuntu:16.04
 
@@ -9,9 +10,12 @@ USER root
 RUN apt-get -y update
 
 # Install Apache, PHP and its modules
-RUN apt-get -y install apache2 php libapache2-mod-php php-mcrypt php-mysql php-curl php-gd mysql-client
+RUN apt-get -y install apache2 php libapache2-mod-php php-mcrypt php-mysql php-curl php-gd mysql-client php-pear vim curl
+RUN a2enmod rewrite
 
-# Install Magento
+# Install Composer
+RUN curl -sS https://getcomposer.org/installer | php && \
+  mv composer.phar /usr/local/bin/composer
 
 # Install and configure supervidord
 RUN apt-get -y install supervisor
