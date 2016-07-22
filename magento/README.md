@@ -8,6 +8,6 @@ To build docker image, just type on the current directory:
 
 To get this docker image running, just type:
 
-	docker run -p 80:80 -t mramos29/magento
+	docker run -p 80:80 -d -t mramos29/magento
 
 This will launch Apache on the default port (TCP 80) running on supervisord.
