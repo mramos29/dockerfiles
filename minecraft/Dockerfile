@@ -27,7 +27,9 @@ RUN mkdir -p /minecraft && \
 # Install and configure supervidord
 RUN apt-get -y install supervisor
 COPY supervisord.conf /etc/supervisord.conf
+COPY start_minecraft.sh /start_minecraft.sh
 
 # Launch services
-#EXPOSE 25565
+EXPOSE 25565
+CMD ["./start_minecraft.sh"]
 #CMD ["/bin/sh -c supervisord","--configuration=/etc/supervisord.conf"]
