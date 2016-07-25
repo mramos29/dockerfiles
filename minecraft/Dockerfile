@@ -10,14 +10,21 @@ USER root
 ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get -y update
 
-# Install Apache, PHP and its modules
-RUN apt-get -y install default-jre wget zip
+# Install JRE, Apache, PHP and the basic stuff
+RUN apt-get -y install default-jre apache2 php libapache2-mod-php php-mysql php-curl php-gd php-zip mysql-client php-pear wget zip vim
+RUN a2enmod rewrite
+COPY 000-default.conf /etc/apache2/sites-available/000-default.conf
 
 # Install Minecraft
 RUN mkdir -p /minecraft && \ 
   cd /minecraft && \
   wget https://s3.amazonaws.com/Minecraft.Download/versions/1.10.2/minecraft_server.1.10.2.jar && \
   echo "eula=true" > /minecraft/eula.txt
+
+# Install Multicraft
+RUN cd /var/www/html/ && \
+  wget http://www.multicraft.org/download?arch=linux64 -O multicraft.tgz && \
+  tar xvfz multicraft.tgz 
 
 # Instll Multicraft
 #RUN wget http://www.multicraft.org/download/linux64 -O multicraft.tar.gz && \ 
@@ -30,6 +37,6 @@ COPY supervisord.conf /etc/supervisord.conf
 COPY start_minecraft.sh /start_minecraft.sh
 
 # Launch services
-EXPOSE 25565
+EXPOSE 80 25565
 CMD ["./start_minecraft.sh"]
 #CMD ["/bin/sh -c supervisord","--configuration=/etc/supervisord.conf"]
