@@ -1,4 +1,4 @@
-# yml for docker-composer to build a Wordpress staack
+# yml for docker-composer to build a Wordpress stack
 
 This is a yml file for docker-composer to build 2 containers with the official images of wordpress and mariadb.
 
