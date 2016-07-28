@@ -26,17 +26,7 @@ RUN cd /var/www/html/ && \
   wget http://www.multicraft.org/download?arch=linux64 -O multicraft.tgz && \
   tar xvfz multicraft.tgz 
 
-# Instll Multicraft
-#RUN wget http://www.multicraft.org/download/linux64 -O multicraft.tar.gz && \ 
-#  tar xvzf multicraft.tar.gz && \
-#  cd multicraft
-
-# Install and configure supervidord
-RUN apt-get -y install supervisor
-COPY supervisord.conf /etc/supervisord.conf
-COPY start_minecraft.sh /start_minecraft.sh
-
 # Launch services
+COPY start_minecraft.sh /start_minecraft.sh
 EXPOSE 80 25565
 CMD ["./start_minecraft.sh"]
-#CMD ["/bin/sh -c supervisord","--configuration=/etc/supervisord.conf"]

@@ -1,0 +1,23 @@
+version: '2'
+services: 
+  wordpress: 
+    image: wordpress:latest
+    container_name: container_wp 
+    volumes: 
+      - "/volumes/html:/var/www/html"
+    ports:
+      - 80:80
+    environment:
+      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_PASSWORD: example
+      VIRTUAL_HOST: example.com
+  db: 
+    image: mariadb:latest
+    container_name: container_mariadb 
+    volumes: 
+      - "/volumes/data:/var/lib/mysql"
+    environment: 
+      MYSQL_ROOT_PASSWORD: example
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: wordpress
