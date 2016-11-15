@@ -8,6 +8,6 @@ To build docker image, just type on the current directory:
 
 To get this docker image running, just type:
 
-	docker run -p 80:80 -v /path/to/logs:/var/log/apache -t mramos29/centos-apache-php-mssql
+	docker run -p 80:80 -v /path/to/logs:/var/log/apache -t mramos29/webalizer
 
 This will launch Apache on the default port (TCP 80) running on supervisord. It'll mount local /path/to/logs on Docker's /var/log/apache directory.
